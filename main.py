@@ -53,7 +53,7 @@ class Tile:
         pygame.draw.rect(window, color, (self.x, self.y, RECT_WIDTH, RECT_HEIGHT))
         
         text = FONT.render(str(self.value), 1, FONT_COLOR)
-        window.blit(text, (self.x + RECT_WIDTH / 2 - text.get_width() / 2, self.y + RECT_HEIGHT / 2 - text.get_height() / 2) )
+        window.blit(text, (self.x + RECT_WIDTH/2 - text.get_width()/2, self.y + RECT_HEIGHT/2 - text.get_height()/2))
         
     def set_pos(self):
         pass
@@ -85,15 +85,20 @@ def draw (window, tiles):
 def get_random_pos(tiles):
     row = None
     col = None
+    
     while True:
-        row = randrange(0, ROWS)
-        col = randrange(0, COLS)
+        row = random.randrange(0, ROWS)
+        col = random.randrange(0, COLS)
+        if f"{row}{col}" not in tiles:
+            break
+        
+    return row, col
              
 def generate_tiles():
     tiles = {}
     for _ in range(2):
         row, col = get_random_pos(tiles)
-        tiles[f"{row}{col}"] = Tiles(2, row, col)
+        tiles[f"{row}{col}"] = Tile(2, row, col)
         
     return tiles
         
@@ -102,7 +107,7 @@ def main(window):
     run = True
     clock = pygame.time. Clock()
     
-    tiles = {"00": Tile(4, 0, 0), "20": Tile(128, 2, 0)}
+  #  tiles = {"00": Tile(4, 0, 0), "20": Tile(128, 2, 0)}
 
     tiles = generate_tiles()
 
