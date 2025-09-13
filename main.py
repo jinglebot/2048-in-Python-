@@ -1,7 +1,8 @@
 import pygame
 import math
-pygame.init()
+import random
 
+pygame.init()
 FPS = 60
 
 WIDTH, HEIGHT = 800, 800
@@ -60,7 +61,6 @@ class Tile:
     def move(self, delta):
         pass
     
-
 def draw_grid(window):
     for row in range(1, ROWS):
         y = row * RECT_HEIGHT
@@ -79,6 +79,7 @@ def draw (window, tiles):
         tile.draw(window)
     
     draw_grid(window)
+    
     pygame.display.update()
     
 def get_random_pos(tiles):
@@ -87,8 +88,7 @@ def get_random_pos(tiles):
     while True:
         row = randrange(0, ROWS)
         col = randrange(0, COLS)
-        
-        
+             
 def generate_tiles():
     tiles = {}
     for _ in range(2):
@@ -97,12 +97,14 @@ def generate_tiles():
         
     return tiles
         
-        
+
 def main(window):
     run = True
     clock = pygame.time. Clock()
     
     tiles = {"00": Tile(4, 0, 0), "20": Tile(128, 2, 0)}
+
+    tiles = generate_tiles()
 
     while run:
         clock.tick(FPS)
@@ -111,8 +113,8 @@ def main(window):
             if event.type == pygame.QUIT:
                 run = False
                 break
-            
-        draw(WINDOW, tiles)
+
+        draw(window, tiles)
 
     pygame.quit()
 
